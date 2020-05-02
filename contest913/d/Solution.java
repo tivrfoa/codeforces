@@ -23,20 +23,60 @@ public class Solution {
         int n = sc.nextInt();
         int T = sc.nextInt();
 
-        int[] a = new int[n];
-        int[] t = new int[n];
-
+        // int[][][] ds = new int[n+1][n][2];
+        HashMap<Integer, ArrayList<int[]>> ds = new HashMap<>();
         for (int i = 0; i < n; ++i) {
-            a[i] = sc.nextInt();
-            t[i] = sc.nextInt();
+            int k = sc.nextInt();
+            ArrayList<int[]> al = ds.get(k);
+            if (al == null) {
+                al = new ArrayList<>();
+                ds.put(k, al);
+            }
+            al.add(new int[]{sc.nextInt(), i});
         }
 
-        int[] res = new int[n];
-        int low = 0, high = n;
-        while (low < high) {
-            int mid = (low + high + 1) >> 1;
-            int[][]
+        ArrayList<int[]> set = new ArrayList<>();
+        int sum = 0;
+        boolean ok = false;
+        for (int k = n; k > 0; --k) {
+            ArrayList<int[]> al = ds.get(k);
+            if (al != null) {
+                for (int[] p : al) {
+                    set.add(p);
+                    sum += p[0];
+                }
+            }
+            while (set.size() > k) {
+                Collections.sort(set, (a1, a2) -> Integer.compare(a1[0], a2[0]));
+                sum -= set.remove(set.size()-1)[0];
+            }
+            if (set.size() == k && sum <= T) {
+                ok = true;
+                break;
+            }
         }
+
+        if (ok) {
+            int sz = set.size();
+            System.out.println(sz + "\n" + sz);
+            int i = 0;
+            for (int[] p : set) {
+                if (i++ > 0) System.out.print(" ");
+                System.out.print(p[1] + 1);
+            }
+            System.out.println();
+        } else {
+            System.out.println("0\n0");
+        }
+
+        // test(null);
+    }
+
+    public static boolean solve() {
+        return false;
+    }
+
+    public static void test(String args[]) {
     }
 }
 

@@ -11,7 +11,7 @@ fn main() {
     let mut a: Vec<i32> = Vec::with_capacity(n);
     let mut t: Vec<i32> = Vec::with_capacity(n);
 
-    for i in 0..n {
+    for _ in 0..n {
         let vv = read_line_i32();
         a.push(vv[0]);
         t.push(vv[1]);
